@@ -2,7 +2,8 @@ package de.hibernate.test;
 
 import com.vaadin.flow.component.page.AppShellConfigurator;
 import com.vaadin.flow.theme.Theme;
-import de.hibernate.test.data.service.SampleAddressRepository;
+import de.hibernate.test.data.service.ItemARepository;
+import de.hibernate.test.data.service.ItemBRepository;
 import javax.sql.DataSource;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -27,14 +28,20 @@ public class Application implements AppShellConfigurator {
 
     @Bean
     SqlDataSourceScriptDatabaseInitializer dataSourceScriptDatabaseInitializer(DataSource dataSource,
-            SqlInitializationProperties properties, SampleAddressRepository repository) {
+                                                                               SqlInitializationProperties properties,
+                                                                               ItemARepository itemARepository,
+                                                                               ItemBRepository itemBRepository) {
         // This bean ensures the database is only initialized when empty
         return new SqlDataSourceScriptDatabaseInitializer(dataSource, properties) {
             @Override
             public boolean initializeDatabase() {
-                if (repository.count() == 0L) {
+                if (itemARepository.count() == 0L || itemBRepository.count() == 0L) {
                     return super.initializeDatabase();
                 }
+
+                System.out.println(itemARepository.findAllByTypeA2());
+                System.out.println(itemBRepository.findAllByTypeB2());
+
                 return false;
             }
         };

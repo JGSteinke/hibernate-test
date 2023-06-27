@@ -13,6 +13,8 @@
         <java.version>17</java.version>
         <vaadin.version>24.1.1</vaadin.version>
         <selenium.version>4.8.3</selenium.version>
+
+        <hibernate.version>6.2.5.Final</hibernate.version>
     </properties>
 
     <parent>
@@ -60,9 +62,9 @@
         </dependency>
 
         <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>runtime</scope>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version>
         </dependency>
 
         <dependency>
